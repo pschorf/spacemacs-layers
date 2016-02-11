@@ -69,9 +69,9 @@ SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
   (setq mu4e-maildir "~/Maildir"
         mu4e-drafts-folder "/[Gmail]/.Drafts"
         mu4e-sent-folder "/[Gmail]/.Sent Mail"
-        mu4e-trash-folder "/[Gmail]/.Trash"
+        mu4e-trash-folder "/[Gmail]/.All Mail"
         mu4e-get-mail-command "mbsync gmail"
-        mu4e-update-interval 120
+        mu4e-update-interval 300
         mu4e-headers-auto-update t
         user-mail-address "pschorf2@gmail.com"
         user-full-name "Paul Schorfheide")
@@ -81,7 +81,7 @@ SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
 (setq mu4e-maildir-shortcuts
-      '(("/INBOX" . ?i)
+      '(("/" . ?i)
         ("/[Gmail]/.Sent Mail" . ?s)
         ("/[Gmail]/.Trash" . ?t)
         ("/[Gmail]/.All Mail" . ?a)))
