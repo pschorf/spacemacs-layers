@@ -73,6 +73,7 @@ SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
         mu4e-get-mail-command "mbsync gmail"
         mu4e-update-interval 300
         mu4e-headers-auto-update t
+        mu4e-change-filenames-when-moving t
         user-mail-address "pschorf2@gmail.com"
         user-full-name "Paul Schorfheide")
 (setq message-send-mail-function 'smtpmail-send-it
