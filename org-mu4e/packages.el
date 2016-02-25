@@ -67,20 +67,42 @@ SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
 
 
   (setq mu4e-maildir "~/Maildir"
-        mu4e-drafts-folder "/[Gmail].Drafts"
-      mu4e-sent-folder "/[Gmail].Sent Mail"
-      mu4e-trash-folder "/[Gmail].Trash"
-      mu4e-get-mail-command "offlineimap"
-      user-mail-address "pschorf2@gmail.com"
-      user-full-name "Paul Schorfheide")
+        mu4e-drafts-folder "/[Gmail]/.Drafts"
+        mu4e-sent-folder "/[Gmail]/.Sent Mail"
+        mu4e-trash-folder "/[Gmail]/.All Mail"
+        mu4e-get-mail-command "mbsync gmail"
+        mu4e-update-interval 300
+        mu4e-headers-auto-update t
+        mu4e-change-filenames-when-moving t
+        user-mail-address "pschorf2@gmail.com"
+        user-full-name "Paul Schorfheide")
 (setq message-send-mail-function 'smtpmail-send-it
       smtpmail-stream-type 'starttls
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
 (setq mu4e-maildir-shortcuts
-      '(("/INBOX" . ?i)
-        ("/[Gmail].Sent Mail" . ?s)
-        ("/[Gmail].Trash" . ?t)
-        ("/[Gmail].All Mail" . ?a))))
+      '(("/" . ?i)
+        ("/[Gmail]/.Sent Mail" . ?s)
+        ("/[Gmail]/.Trash" . ?t)
+        ("/[Gmail]/.All Mail" . ?a)))
+(setq mu4e-view-show-images t
+      mu4e-view-image-max-width 800)
+
+(require 'gnus-dired)
+;; make the `gnus-dired-mail-buffers' function also work on
+;; message-mode derived modes, such as mu4e-compose-mode
+(defun gnus-dired-mail-buffers ()
+  "Return a list of active message buffers."
+  (let (buffers)
+    (save-current-buffer
+      (dolist (buffer (buffer-list t))
+        (set-buffer buffer)
+        (when (and (derived-mode-p 'message-mode)
+                   (null message-sent-message-via))
+          (push (buffer-name buffer) buffers))))
+    (nreverse buffers)))
+
+(setq gnus-dired-mail-mode 'mu4e-user-agent)
+(add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
 ;;; packages.el ends here
