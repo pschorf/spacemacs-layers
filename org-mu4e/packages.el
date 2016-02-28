@@ -87,6 +87,7 @@ SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
         ("/[Gmail]/.Trash" . ?t)
         ("/[Gmail]/.All Mail" . ?a)))
 (setq mu4e-view-show-images t
+      mu4e-html2text-command "html2text -b80 --unicode-snob --no-wrap-links"
       mu4e-view-image-max-width 800)
 
 (require 'gnus-dired)
