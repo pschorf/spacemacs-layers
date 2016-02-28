@@ -62,8 +62,7 @@ Each entry is either:
   (setq org-mu4e-link-query-in-headers-mode nil)
   (setq org-capture-templates '(("t" "todo" entry (file+headline "~/todo.org" "Tasks")
                                        "* TODO [#A] %?
-SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
-%a")))
+SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")))
 
 
   (setq mu4e-maildir "~/Maildir"
