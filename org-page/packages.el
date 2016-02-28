@@ -65,19 +65,28 @@ Each entry is either:
 
 ;;; packages.el ends here
 (defun org-page/init-org-page ()
+  (spacemacs/declare-prefix "ab" "blog")
   (use-package org-page
-    :config (setq op/repository-directory "~/src/blog"
-                  op/site-main-title "pschorf's blog"
-                  op/site-sub-title "A work in progress"
-                  op/site-domain "https://pschorf.github.io"
-                  op/theme-root-directory "~/src/"
-                  op/theme 'org-page-theme-kactus
-                  op/personal-github-link "http://github.com/pschorf")))
+    :config (progn (setq op/repository-directory "~/src/blog"
+                         op/site-main-title "pschorf's blog"
+                         op/site-sub-title "A work in progress"
+                         op/site-domain "https://pschorf.github.io"
+                         op/theme-root-directory "~/src/"
+                         op/theme 'org-page-theme-kactus
+                         op/personal-github-link "http://github.com/pschorf"
+                         op/personal-google-analytics-id "UA-74427262-1")
+                   (spacemacs/set-leader-keys
+                     "abp" 'op/do-publication-and-preview-site
+                     "abP" 'op/do-publication))))
 
 (defun org-page/init-blog-admin ()
   (use-package blog-admin
-    :config (setq blog-admin-backend-type 'org-page
-                  blog-admin-backend-path "~/src/blog"
-                  blog-admin-backend-new-post-in-drafts t
-                  blog-admin-backend-new-post-with-same-name-dir t
-                  blog-admin-backend-org-page-drafts "_drafts")))
+    :config (progn (setq blog-admin-backend-type 'org-page
+                         blog-admin-backend-path "~/src/blog"
+                         blog-admin-backend-new-post-in-drafts t
+                         blog-admin-backend-new-post-with-same-name-dir t
+                         blog-admin-backend-org-page-drafts "_drafts")
+                   (evilified-state-evilify-map blog-admin-mode-map
+                     :mode blog-admin-mode)
+                   (spacemacs/set-leader-keys
+                     "abb" 'blog-admin-start))))
