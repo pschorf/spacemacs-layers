@@ -30,7 +30,11 @@
 ;;; Code:
 
 (defconst org-page-packages
-  '(org-page)
+  '(org-page
+    (blog-admin :location (recipe
+                           :fetcher github
+                           :repo "codefalling/blog-admin")))
+
   "The list of Lisp packages required by the org-page layer.
 
 Each entry is either:
@@ -61,10 +65,19 @@ Each entry is either:
 
 ;;; packages.el ends here
 (defun org-page/init-org-page ()
-  (setq op/repository-directory "~/src/blog"
-        op/site-main-title "pschorf's blog"
-        op/site-sub-title "A work in progress"
-        op/site-domain "https://pschorf.github.io"
-        op/theme-root-directory "~/src/"
-        op/theme 'org-page-theme-kactus
-        op/personal-github-link "http://github.com/pschorf"))
+  (use-package org-page
+    :config (setq op/repository-directory "~/src/blog"
+                  op/site-main-title "pschorf's blog"
+                  op/site-sub-title "A work in progress"
+                  op/site-domain "https://pschorf.github.io"
+                  op/theme-root-directory "~/src/"
+                  op/theme 'org-page-theme-kactus
+                  op/personal-github-link "http://github.com/pschorf")))
+
+(defun org-page/init-blog-admin ()
+  (use-package blog-admin
+    :config (setq blog-admin-backend-type 'org-page
+                  blog-admin-backend-path "~/src/blog"
+                  blog-admin-backend-new-post-in-drafts t
+                  blog-admin-backend-new-post-with-same-name-dir t
+                  blog-admin-backend-org-page-drafts "_drafts")))
