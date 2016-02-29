@@ -61,7 +61,7 @@ Each entry is either:
   (require 'org-mu4e)
   (setq org-mu4e-link-query-in-headers-mode nil)
   (setq org-capture-templates '(("t" "todo" entry (file+headline "~/todo.org" "Tasks")
-                                       "* TODO %?
+                                       "* TODO [#A] %?
 SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")))
 
 
@@ -90,6 +90,10 @@ SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")))
         ("/Conversation History" . ?c)))
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
+
+(setq mu4e-view-show-images t
+      mu4e-html2text-command "html2text -b80 --unicode-snob --no-wrap-links"
+      mu4e-view-image-max-width 800)
 
 (defun gnus-dired-mail-buffers ()
   "Return a list of active message buffers."
