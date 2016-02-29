@@ -61,37 +61,36 @@ Each entry is either:
   (require 'org-mu4e)
   (setq org-mu4e-link-query-in-headers-mode nil)
   (setq org-capture-templates '(("t" "todo" entry (file+headline "~/todo.org" "Tasks")
-                                       "* TODO [#A] %?
-SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
-%a")))
+                                       "* TODO %?
+SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")))
 
 
   (setq mu4e-maildir "~/Maildir"
-        mu4e-drafts-folder "/[Gmail]/.Drafts"
-        mu4e-sent-folder "/[Gmail]/.Sent Mail"
-        mu4e-trash-folder "/[Gmail]/.All Mail"
-        mu4e-get-mail-command "mbsync gmail"
-        mu4e-update-interval 300
-        mu4e-headers-auto-update t
-        mu4e-change-filenames-when-moving t
-        user-mail-address "pschorf2@gmail.com"
-        user-full-name "Paul Schorfheide")
+      mu4e-drafts-folder "/Drafts"
+      mu4e-sent-folder "/Sent Items"
+      mu4e-trash-folder "/Deleted Items"
+      mu4e-change-filenames-when-moving t
+      mu4e-html2text-command "html2text -utf8 -width 72"
+      mu4e-get-mail-command "mbsync twosigma"
+      mu4e-update-interval 300
+      mu4e-show-images t
+      mu4e-use-fancy-chars t
+      user-mail-address "pschorfh@twosigma.com"
+      user-full-name "Paul Schorfheide")
 (setq message-send-mail-function 'smtpmail-send-it
       smtpmail-stream-type 'starttls
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-default-smtp-server "msx.twosigma.com"
+      smtpmail-smtp-server "msx.twosigma.com"
       smtpmail-smtp-service 587)
 (setq mu4e-maildir-shortcuts
       '(("/" . ?i)
-        ("/[Gmail]/.Sent Mail" . ?s)
-        ("/[Gmail]/.Trash" . ?t)
-        ("/[Gmail]/.All Mail" . ?a)))
-(setq mu4e-view-show-images t
-      mu4e-view-image-max-width 800)
+        ("/Sent Items" . ?s)
+        ("/Deleted Items" . ?t)
+        ("/Archive" . ?a)
+        ("/Conversation History" . ?c)))
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
 
-(require 'gnus-dired)
-;; make the `gnus-dired-mail-buffers' function also work on
-;; message-mode derived modes, such as mu4e-compose-mode
 (defun gnus-dired-mail-buffers ()
   "Return a list of active message buffers."
   (let (buffers)
