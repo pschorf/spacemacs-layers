@@ -61,7 +61,7 @@ Each entry is either:
   (require 'org-mu4e)
   (setq org-mu4e-link-query-in-headers-mode nil)
   (setq org-capture-templates '(("t" "todo" entry (file+headline "~/todo.org" "Tasks")
-                                       "* TODO [#A] %?
+                                       "* TODO %?
 SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")))
 
 
@@ -70,7 +70,6 @@ SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")))
       mu4e-sent-folder "/Sent Items"
       mu4e-trash-folder "/Deleted Items"
       mu4e-change-filenames-when-moving t
-      mu4e-html2text-command "html2text -utf8 -width 72"
       mu4e-get-mail-command "mbsync twosigma"
       mu4e-update-interval 300
       mu4e-show-images t
@@ -92,7 +91,7 @@ SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")))
   (imagemagick-register-types))
 
 (setq mu4e-view-show-images t
-      mu4e-html2text-command "html2text -b80 --unicode-snob --no-wrap-links"
+      mu4e-html2text-command "/home/pschorfh/virtualenv/env/bin/html2text -b80 --unicode-snob --no-wrap-links"
       mu4e-view-image-max-width 800)
 
 (defun gnus-dired-mail-buffers ()
