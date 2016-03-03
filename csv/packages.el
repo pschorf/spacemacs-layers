@@ -60,5 +60,6 @@ Each entry is either:
 
 
 (defun csv/init-csv-mode ()
-  (spacemacs/set-leader-keys-for-major-mode 'csv-mode
-    "a" 'csv-align-fields))
+  (use-package 'csv-mode
+    :config (spacemacs/set-leader-keys-for-major-mode 'csv-mode
+              "a" 'csv-align-fields)))
