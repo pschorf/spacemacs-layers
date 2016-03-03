@@ -94,6 +94,19 @@ SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")))
       mu4e-html2text-command "/home/pschorfh/virtualenv/env/bin/html2text -b80 --unicode-snob --no-wrap-links"
       mu4e-view-image-max-width 800)
 
+(defun org-capture-link ()
+  "Capture with a link"
+  (interactive)
+  (org-store-link (buffer-file-name))
+  (org-capture nil "t")
+  (let ((link (plist-get org-store-link-plist ':annotation)))
+    (save-excursion
+      (newline)
+      (insert link))))
+
+(spacemacs/set-leader-keys-for-major-mode
+  'mu4e-view-mode "l" 'org-capture-link)
+
 (defun gnus-dired-mail-buffers ()
   "Return a list of active message buffers."
   (let (buffers)
