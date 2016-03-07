@@ -30,10 +30,7 @@
 ;;; Code:
 
 (defconst org-page-packages
-  '(org-page
-    (blog-admin :location (recipe
-                           :fetcher github
-                           :repo "codefalling/blog-admin")))
+  '(org-page)
 
   "The list of Lisp packages required by the org-page layer.
 
@@ -77,16 +74,5 @@ Each entry is either:
                          op/personal-google-analytics-id "UA-74427262-1")
                    (spacemacs/set-leader-keys
                      "abp" 'op/do-publication-and-preview-site
-                     "abP" 'op/do-publication))))
-
-(defun org-page/init-blog-admin ()
-  (use-package blog-admin
-    :config (progn (setq blog-admin-backend-type 'org-page
-                         blog-admin-backend-path "~/src/blog"
-                         blog-admin-backend-new-post-in-drafts t
-                         blog-admin-backend-new-post-with-same-name-dir t
-                         blog-admin-backend-org-page-drafts "_drafts")
-                   (evilified-state-evilify-map blog-admin-mode-map
-                     :mode blog-admin-mode)
-                   (spacemacs/set-leader-keys
-                     "abb" 'blog-admin-start))))
+                     "abP" 'op/do-publication
+                     "abn" 'op/new-post))))
